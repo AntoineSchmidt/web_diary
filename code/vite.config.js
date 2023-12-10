@@ -7,6 +7,8 @@ import ViteFonts from 'unplugin-fonts/vite'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -44,5 +46,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  base: '/web_diary/'
+  base: 'web_diary'
 })
