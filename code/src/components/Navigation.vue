@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar color="blue">
+    <v-toolbar>
         <v-btn icon @click="$router.push({name: 'home'})">
             <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
         </v-btn>

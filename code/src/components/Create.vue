@@ -1,19 +1,19 @@
 <template>
-    <v-card class="mx-auto" height="100%" width="100%" max-width="500">
-        <Navigation title="New Position"></Navigation>
+    <v-card class="mx-auto">
+        <Navigation :title="`New entry for ${entry.date.toLocaleDateString()}`"></Navigation>
         <v-list-item>
             <v-spacer></v-spacer>
-            <video autoplay id="video" width="100%"></video>
+            <video autoplay id="video"></video>
             <v-spacer></v-spacer>
         </v-list-item>
         <v-list-item>
             <v-spacer></v-spacer>
-            <span>N {{ entry.location[0] }}° E {{ entry.location[1] }}°</span>
+            <span>Location: N {{ entry.location[0] }}° E {{ entry.location[1] }}°</span>
             <v-spacer></v-spacer>
         </v-list-item>
         <v-list-item>
             <v-spacer></v-spacer>
-            <textarea v-model="entry.comment" placeholder="add a description" cols=100 rows=2></textarea>
+            <textarea v-model="entry.comment" placeholder="My thoughts and impressions" cols=100 rows=2></textarea>
             <v-spacer></v-spacer>
         </v-list-item>
         <v-card-actions>
@@ -25,14 +25,19 @@
 
 <script>
 import Navigation from './Navigation.vue'
+import { useAppStore } from '@/store/app'
 
 export default {
     name: 'Create',
     components: {
         Navigation,
     },
+    setup () {
+        const store = useAppStore()
+        return { store }
+    },
     data: () => ({
-        entry: { image: '', location: [0, 0], comment: '' }
+        entry: { id: crypto.randomUUID(), date: new Date(), image: null, location: [0, 0], comment: null}
     }),
     methods: {
         setPosition(position) {
@@ -62,7 +67,7 @@ export default {
             canvas.getContext("2d").drawImage(video, 0, 0);
             this.entry.image = canvas.toDataURL("image/png");
 
-            this.$store.commit('add', { add: this.entry });
+            this.store.add(this.entry);
             this.$router.push({ name: 'home' });
         }
     },
