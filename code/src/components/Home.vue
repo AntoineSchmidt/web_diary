@@ -1,9 +1,15 @@
 <template>
+    <a href="https://github.com/AntoineSchmidt/web_diary">
+        <img id="forkme" src="/forkme.svg?url" alt="See the sourcecode" decoding="async" loading="lazy" data-recalc-dims="1">
+    </a>
     <v-card class="mx-auto">
         <v-toolbar>
             <v-spacer></v-spacer>
             <v-toolbar-title>My Diary</v-toolbar-title>
             <v-spacer></v-spacer>
+            <span id="tip" v-if="entries.length == 0">
+                Create your first entry =>
+            </span>
             <v-btn icon @click="$router.push({name: 'create'})">
                 <v-icon>mdi-plus-thick</v-icon>
             </v-btn>
@@ -41,6 +47,17 @@ export default {
 </script>
 
 <style>
+#tip {
+    color: white;
+    margin-left: 10px;
+    font-weight: bold;
+}
+#forkme {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    z-index: 100;
+}
 .entry {
     width: 500px;
 }
